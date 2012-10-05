@@ -36,7 +36,6 @@
 @property (nonatomic, assign) SEL successAction;
 @property (nonatomic, assign) SEL cancelAction;
 @property (nonatomic, retain) UIActionSheet *actionSheet;
-@property (nonatomic, retain) UIPopoverController *popOverController;
 @property (nonatomic, retain) NSObject *selfReference;
 
 - (void)presentPickerForView:(UIView *)aView;
