@@ -32,6 +32,7 @@
 @interface ActionSheetDatePicker()
 @property (nonatomic, assign) UIDatePickerMode datePickerMode;
 @property (nonatomic, retain) NSDate *selectedDate;
+@property(nonatomic)        NSTimeInterval countDownDuration; 
 @end
 
 @implementation ActionSheetDatePicker
@@ -76,7 +77,16 @@
 
 - (void)notifyTarget:(id)target didSucceedWithAction:(SEL)action origin:(id)origin {
     if ([target respondsToSelector:action])
-        objc_msgSend(target, action, self.selectedDate, origin);
+    {
+        if (self.datePickerMode == UIDatePickerModeCountDownTimer)
+        {
+            objc_msgSend(target, action, self.countDownDuration, origin);
+        }
+        else
+        {
+            objc_msgSend(target, action, self.selectedDate, origin);
+        }
+    }
     else
         NSAssert(NO, @"Invalid target/action ( %s / %s ) combination used for ActionSheetPicker", object_getClassName(target), sel_getName(action));
 }
@@ -85,7 +95,14 @@
     if (!sender || ![sender isKindOfClass:[UIDatePicker class]])
         return;
     UIDatePicker *datePicker = (UIDatePicker *)sender;
-    self.selectedDate = datePicker.date;
+    if (self.datePickerMode == UIDatePickerModeCountDownTimer)
+    {
+        self.countDownDuration = datePicker.countDownDuration;
+    }
+    else
+    {
+        self.selectedDate = datePicker.date;
+    }
 }
 
 - (void)customButtonPressed:(id)sender {
