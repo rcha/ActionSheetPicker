@@ -229,7 +229,8 @@
     return pickerToolbar;
 }
 
-- (UIBarButtonItem *)createToolbarLabelWithTitle:(NSString *)aTitle {
+- (UIBarButtonItem *)createToolbarLabelWithTitle:(NSString *)aTitle
+{
     UILabel *toolBarItemlabel = [[UILabel alloc]initWithFrame:CGRectMake(0, 0, 180,30)];
     [toolBarItemlabel setTextAlignment:NSTextAlignmentCenter];
     [toolBarItemlabel setTextColor:[UIColor whiteColor]];    
@@ -241,8 +242,12 @@
     return buttonLabel;
 }
 
-- (UIBarButtonItem *)createButtonWithType:(UIBarButtonSystemItem)type target:(id)target action:(SEL)buttonAction {
-    return [[[UIBarButtonItem alloc] initWithBarButtonSystemItem:type target:target action:buttonAction] autorelease];
+- (UIBarButtonItem *)createButtonWithType:(UIBarButtonSystemItem)type target:(id)target action:(SEL)buttonAction
+{
+    UIBarButtonItem *button = [[[UIBarButtonItem alloc] initWithBarButtonSystemItem:type target:target action:buttonAction] autorelease];
+    [button setTintColor:[UIColor colorWithRed:167/255.0 green:229/255.0 blue:59/255.0 alpha:1]];
+    
+    return button;
 }
 
 #pragma mark - Utilities and Accessors
